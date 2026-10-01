@@ -37,22 +37,36 @@ export default function CartDrawer({
   const grandTotal = subtotal + deliveryFee + tax;
   const totalItemsCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
-  const handleCheckoutSubmit = (e) => {
+  const handleCheckoutSubmit = async (e) => {
     e.preventDefault();
-    if (formData.paymentMethod === 'card') {
-      setIsProcessing(true);
-      setTimeout(() => {
+    setIsProcessing(true);
+
+    try {
+      const response = await fetch('https://dosadelight-backend.onrender.com/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customerName: formData.name,
+          phone: formData.phone,
+          address: formData.address,
+          totalAmount: grandTotal,
+          items: cartItems.map(item => ({ name: item.name, quantity: item.quantity, price: item.price }))
+        })
+      });
+
+      if (response.ok) {
         setIsProcessing(false);
         setOrderPlaced(true);
         setTimeout(() => {
           onClearCart();
-        }, 400);
-      }, 2000);
-    } else {
-      setOrderPlaced(true);
-      setTimeout(() => {
-        onClearCart();
-      }, 400);
+        }, 1000);
+      } else {
+        alert("Something went wrong saving the order. Try again.");
+        setIsProcessing(false);
+      }
+    } catch (err) {
+      alert("Failed to connect to the server.");
+      setIsProcessing(false);
     }
   };
 
