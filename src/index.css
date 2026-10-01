@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════
+   ROOT & BASE STYLES
+═══════════════════════════════════════════════ */
+:root {
+  --cream: #FFF8ED;
+  --gold: #D9A321;
+  --gold-light: #F0C84A;
+  --gold-dark: #B8861A;
+  --maroon: #7B2D26;
+  --maroon-dark: #5A1F1A;
+  --green: #3F7D3A;
+  --green-leaf: #155D27;
+  --green-leaf-dark: #0F3E1A;
+  --green-leaf-light: #2E7D32;
+  --brown: #3B2418;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+html.instant-scroll {
+  scroll-behavior: auto !important;
+}
+
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--cream);
+  color: var(--brown);
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════════════
+   KOLAM PATTERN SVG BACKGROUND
+═══════════════════════════════════════════════ */
+.kolam-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23D9A321' stroke-width='0.5' opacity='0.15'%3E%3Ccircle cx='40' cy='40' r='35'/%3E%3Ccircle cx='40' cy='40' r='25'/%3E%3Ccircle cx='40' cy='40' r='15'/%3E%3Ccircle cx='40' cy='40' r='5'/%3E%3Cline x1='40' y1='5' x2='40' y2='75'/%3E%3Cline x1='5' y1='40' x2='75' y2='40'/%3E%3Cline x1='11.7' y1='11.7' x2='68.3' y2='68.3'/%3E%3Cline x1='68.3' y1='11.7' x2='11.7' y2='68.3'/%3E%3Cpath d='M40 5 L50 20 L40 15 L30 20 Z' fill='%23D9A321' opacity='0.2'/%3E%3Cpath d='M40 75 L50 60 L40 65 L30 60 Z' fill='%23D9A321' opacity='0.2'/%3E%3Cpath d='M5 40 L20 30 L15 40 L20 50 Z' fill='%23D9A321' opacity='0.2'/%3E%3Cpath d='M75 40 L60 30 L65 40 L60 50 Z' fill='%23D9A321' opacity='0.2'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 80px 80px;
+}
+
+.kolam-bg-subtle {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23D9A321' stroke-width='0.4' opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='26'/%3E%3Ccircle cx='30' cy='30' r='18'/%3E%3Ccircle cx='30' cy='30' r='10'/%3E%3Ccircle cx='30' cy='30' r='3'/%3E%3Cline x1='30' y1='4' x2='30' y2='56'/%3E%3Cline x1='4' y1='30' x2='56' y2='30'/%3E%3Cline x1='11' y1='11' x2='49' y2='49'/%3E%3Cline x1='49' y1='11' x2='11' y2='49'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 60px 60px;
+}
+
+/* ═══════════════════════════════════════════════
+   SPINNING RINGS ANIMATION
+═══════════════════════════════════════════════ */
+@keyframes spin-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes spin-ccw {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-18px) rotate(8deg); }
+  66% { transform: translateY(-8px) rotate(-5deg); }
+}
+@keyframes float-y-delayed {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(-10deg); }
+  66% { transform: translateY(-22px) rotate(6deg); }
+}
+@keyframes steam-rise {
+  0% { transform: translateY(0) scaleX(1); opacity: 0.7; }
+  50% { transform: translateY(-30px) scaleX(1.3); opacity: 0.4; }
+  100% { transform: translateY(-60px) scaleX(0.8); opacity: 0; }
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(217,163,33,0.3), 0 0 40px rgba(217,163,33,0.1); }
+  50% { box-shadow: 0 0 40px rgba(217,163,33,0.6), 0 0 80px rgba(217,163,33,0.2); }
+}
+@keyframes seed-spin {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+  50% { transform: translateY(-10px) rotate(180deg) scale(1.2); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Spinning ring classes */
+.ring-outer {
+  animation: spin-cw 30s linear infinite;
+}
+.ring-middle {
+  animation: spin-ccw 20s linear infinite;
+}
+.ring-inner {
+  animation: spin-cw 15s linear infinite;
+}
+.breathe-anim {
+  animation: breathe 4s ease-in-out infinite;
+}
+.pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+.float-1 { animation: float-y 6s ease-in-out infinite; }
+.float-2 { animation: float-y-delayed 7s ease-in-out infinite 0.5s; }
+.float-3 { animation: float-y 8s ease-in-out infinite 1s; }
+.float-4 { animation: float-y-delayed 5s ease-in-out infinite 1.5s; }
+.float-5 { animation: float-y 9s ease-in-out infinite 2s; }
+.float-6 { animation: float-y-delayed 6s ease-in-out infinite 2.5s; }
+.float-7 { animation: float-y 7s ease-in-out infinite 3s; }
+.float-8 { animation: float-y-delayed 8s ease-in-out infinite 0.8s; }
+.seed-anim { animation: seed-spin 4s ease-in-out infinite; }
+.seed-anim-2 { animation: seed-spin 5s ease-in-out infinite 1s; }
+.seed-anim-3 { animation: seed-spin 3s ease-in-out infinite 2s; }
+.steam-1 { animation: steam-rise 2.5s ease-in-out infinite; }
+.steam-2 { animation: steam-rise 3s ease-in-out infinite 0.8s; }
+.steam-3 { animation: steam-rise 2s ease-in-out infinite 1.5s; }
+
+/* ═══════════════════════════════════════════════
+   CUSTOM SCROLLBAR
+═══════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold-dark); }
+
+/* ═══════════════════════════════════════════════
+   GLASS CARD
+═══════════════════════════════════════════════ */
+.glass-card {
+  background: rgba(255, 248, 237, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(217, 163, 33, 0.2);
+}
+.glass-dark {
+  background: rgba(59, 36, 24, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(217, 163, 33, 0.3);
+}
+
+/* ═══════════════════════════════════════════════
+   BANANA LEAF GREEN & GRADIENT STYLES
+═══════════════════════════════════════════════ */
+.text-gold-gradient,
+.text-leaf-gradient {
+  background: linear-gradient(135deg, #0F3E1A 0%, #155D27 50%, #2E7D32 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gold-warm-gradient {
+  background: linear-gradient(135deg, #D9A321, #F0C84A, #B8861A);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-shimmer {
+  background: linear-gradient(90deg, #0F3E1A 0%, #2E7D32 25%, #155D27 50%, #2E7D32 75%, #0F3E1A 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION DIVIDER
+═══════════════════════════════════════════════ */
+.divider-ornament::before,
+.divider-ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(217,163,33,0.5), transparent);
+}
+
+/* ═══════════════════════════════════════════════
+   NAVBAR SCROLL EFFECT
+═══════════════════════════════════════════════ */
+.navbar-scrolled {
+  background: rgba(59, 36, 24, 0.95) !important;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+/* ═══════════════════════════════════════════════
+   CARD HOVER EFFECTS
+═══════════════════════════════════════════════ */
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* ═══════════════════════════════════════════════
+   BUTTON STYLES
+═══════════════════════════════════════════════ */
+.btn-primary {
+  background: linear-gradient(135deg, #D9A321, #F0C84A);
+  color: #3B2418;
+  font-weight: 700;
+  padding: 14px 36px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(217,163,33,0.4);
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #F0C84A, #D9A321);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.btn-primary:hover::before { opacity: 1; }
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(217,163,33,0.6);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--maroon);
+  font-weight: 600;
+  padding: 13px 35px;
+  border-radius: 50px;
+  border: 2px solid var(--maroon);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+.btn-outline:hover {
+  background: var(--maroon);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(123,45,38,0.4);
+}
+
+/* ═══════════════════════════════════════════════
+   STAR RATING
+═══════════════════════════════════════════════ */
+.star { color: #D9A321; }
+
+/* ═══════════════════════════════════════════════
+   HIDE SCROLLBAR UTILITY
+═══════════════════════════════════════════════ */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
