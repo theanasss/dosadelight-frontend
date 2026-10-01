@@ -220,8 +220,8 @@ export default function Footer() {
                 {status === 'loading' ? 'Sending...' : 'Subscribe'}
               </button>
             </div>
-            {status === 'success' && <p className="text-green-400 text-xs mt-1">Successfully subscribed!</p>}
-            {status === 'error' && <p className="text-red-400 text-xs mt-1">Something went wrong. Try again.</p>}
+            {status === 'success' && <p className="text-[#4ade80] font-bold text-sm mt-2 bg-black/20 px-3 py-1.5 rounded-md border border-[#4ade80]/30 text-center shadow-[0_0_10px_rgba(74,222,128,0.1)]">🎉 Successfully subscribed!</p>}
+            {status === 'error' && <p className="text-[#f87171] font-bold text-sm mt-2 bg-black/20 px-3 py-1.5 rounded-md border border-[#f87171]/30 text-center">Something went wrong. Try again.</p>}
           </form>
         </div>
 
