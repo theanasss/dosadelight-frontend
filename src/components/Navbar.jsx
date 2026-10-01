@@ -153,7 +153,7 @@ export default function Navbar({ cartCount, onOpenCart }) {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden bg-brown/97 backdrop-blur-xl border-t border-gold/20"
+            className="md:hidden overflow-hidden bg-cream/95 backdrop-blur-xl border-t border-gold/20 shadow-xl"
           >
             <div className="px-6 py-5 flex flex-col gap-2">
               {navLinks.map((link) => {
@@ -166,7 +166,7 @@ export default function Navbar({ cartCount, onOpenCart }) {
                     className={`flex items-center gap-3 py-3 px-4 rounded-xl font-medium transition-all ${
                       isActive
                         ? 'bg-green-dark text-white'
-                        : 'text-cream/80 hover:text-green-dark hover:bg-white/5'
+                        : 'text-brown/80 hover:text-green-dark hover:bg-green-dark/5'
                     }`}
                   >
                     {isActive && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
