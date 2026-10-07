@@ -55,6 +55,21 @@ export default function AdminDashboard() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) { 
+        toast.error('Image is too large (max 5MB)');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({ ...formData, image: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newItem = {
@@ -143,6 +158,14 @@ export default function AdminDashboard() {
                 <input type="number" name="price" required placeholder="Price (₹)" value={formData.price} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border border-brown/20 focus:outline-none focus:border-gold" />
                 <input type="text" name="tags" required placeholder="Tags (comma separated)" value={formData.tags} onChange={handleChange} className="w-full px-4 py-2 rounded-lg border border-brown/20 focus:outline-none focus:border-gold" />
                 
+                <div className="flex flex-col gap-1 mt-2">
+                  <label className="text-sm text-brown/70 font-semibold">Dish Photo (Optional)</label>
+                  <input type="file" accept="image/*" onChange={handleImageUpload} className="w-full text-sm text-brown/70 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-green/10 file:text-green hover:file:bg-green/20" />
+                  {formData.image && formData.image !== '/images/plain_dosa.png' && (
+                    <img src={formData.image} alt="Preview" className="h-16 w-16 object-cover rounded mt-2 border border-brown/20" />
+                  )}
+                </div>
+
                 <div className="flex items-center justify-between mt-2">
                   <label className="text-sm text-brown/70 font-semibold">Spice Level (0-3)</label>
                   <input type="number" min="0" max="3" name="spice" value={formData.spice} onChange={handleChange} className="w-20 px-4 py-1 rounded-lg border border-brown/20 focus:outline-none focus:border-gold text-center" />
